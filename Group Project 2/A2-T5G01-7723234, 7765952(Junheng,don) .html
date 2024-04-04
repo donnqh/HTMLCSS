@@ -1,0 +1,257 @@
+<html>
+    <title>
+        A2-T5G01-7723234, 7765952 (JunHeng, Don)
+    </title>
+    <head>
+        <style>
+            .blue
+            {
+                background-color : #E7FEFF;
+            }
+
+            .peach
+            {
+                background-color: peachpuff;
+            }
+
+            .green
+            {
+                background-color: palegreen;
+            }
+
+            .yellow
+            {
+                background-color: #FFFDD0;
+            }
+
+            .white
+            {
+                background-color: white;
+            }
+
+            .number1
+            {
+                background-color: #FDDA0D;
+            }
+
+            .number2
+            {
+                background-color: #0000FF;
+            }
+
+            .number3
+            {
+                background-color: #8A9A5B;
+            }
+        </style>
+    </head> 
+    <body>
+        <!--- Part 1 -->
+        <table border = "1" width = "40%" border-collapse:"collapse";>
+            <tr>
+                <tr class = blue>
+                    <th colspan = "3">CSIT 128 : Assignment 2</th>
+                    <th colspan = "1">Group T5G01</th>
+                </tr>
+                <tr>
+                    <td rowspan= "3" width = "20%" align = "center">
+                        Student Number / Name/ Email
+                    </td>
+                    <td >7723234</td>
+                    <td>Tan Jun Heng </td>
+                    <td>jhtan094@mymail.sim.edu.sg</td>
+                </tr>
+                <td>7765952</td>
+                <td>Don Ng</td>
+                <td>donqhng001@mymail.sim.edu.sg</td>
+            </tr>
+            <td colspan = "1"> &nbsp;</td> <td colspan = "1" &nbsp;></td> 
+            <td colspan = "1" &nbsp;></td>
+        </table>
+
+        <br/> 
+
+        <!-- Part 2 -->
+        <table bgcolor = "black">
+            <tr class = peach>
+                <th colspan= "3" width = "600" height = "40">Part 2 : Game</th>
+            </tr>
+            <tr height ="40" align = "center">
+                <td class = blue width = "200">
+                    Your chosen number : 
+                    <span style="color: black;font-size: 22px" id = "displayNumber">  </span>
+                </td>
+
+                <td class = blue width = "200">
+                    <select name = "selectedNumber" id = "selectedNumber">
+                        <option value = "0"> 0 </option>
+                        <option value = "1"> 1 </option>
+                        <option value = "2"> 2 </option>
+                        <option value = "3"> 3 </option>
+                        <option value = "4"> 4 </option>
+                        <option value = "5"> 5 </option>
+                        <option value = "6"> 6 </option>
+                        <option value = "7"> 7 </option>
+                        <option value = "8"> 8 </option>
+                        <option value = "9"> 9 </option>
+                    </select>
+                </td>
+
+                <th class = yellow width = "200">
+                    Current Score :
+                    <span style="color: red;font-size: 22px" id="score"> 0 </span>
+                </th>
+            </tr>
+            <tr class = green width = "400" height = "40" align = "center">
+                <td colspan = "3">
+                    <button type= "button" onclick = "startGame(), updateNumber(), resetScore()">Start Game</button>
+                    <button type= "button" onclick = "stopGame()">Stop Game</button>
+                </td>
+            </tr>
+
+            <tr class = white width = "210" height = "80" align= "center">
+                <td>
+                    <button type = "button" width = "70" height = "80" id = "no1" style="color:blue; font-size:150%" onclick = "check1()">
+                        &lt;1<sup>st</sup> number&gt;
+                    </button>
+                </td>
+                <td>
+                    <button type = "button" width = "70" height = "80" id = "no2" style="color:#d87d22; font-size:150%" onclick = "check2()">
+                        &lt;2<sup>nd</sup> number&gt;
+                    </button>
+                </td>
+                <td>
+                    <button type = "button" width = "70" height = "80" id = "no3" style="color:#ff00ff; font-size:150%" onclick = "check2()">
+                        &lt;3<sup>rd</sup> number&gt;
+                    </button>
+                </td>
+            </tr>
+			</tr>
+        </table>
+
+        <script>
+            
+            function startGame()
+            {
+                document.getElementById("selectedNumber").disabled = true;
+                //Generate 3 random numbers
+                do
+                {
+					no1 = Math.floor(Math.random() * 10); //Generate 0 - 9
+                    no2 = Math.floor(Math.random() * 10); //Generate 0 - 9
+                    no3 = Math.floor(Math.random() * 10); //Generate 0 - 9
+				} 
+                while(no1===no2 || no2===no3 || no1===no3);
+
+                document.getElementById("no1").innerHTML = no1;
+                document.getElementById("no2").innerHTML = no2;
+                document.getElementById("no3").innerHTML = no3;
+
+                //Implementing the timer of 2000ms
+                timer = setTimeout (function() { startGame();}, 2000); 
+
+                //Setting the button to be able to be clicked again
+                document.getElementById("no1").disabled = false;
+                document.getElementById("no2").disabled = false;
+                document.getElementById("no3").disabled = false;
+            }
+
+            function resetScore()
+            {
+                count = 0;
+                document.getElementById("score").innerHTML = count;
+            }
+
+            function updateNumber()
+            {
+                var x = document.getElementById("selectedNumber").value;
+                document.getElementById("displayNumber").innerHTML = x;
+            }
+
+            function stopGame()
+            {
+                document.getElementById("selectedNumber").disabled = false;
+                clearTimeout(timer);
+
+                document.getElementById("no1").disabled = true;
+                document.getElementById("no2").disabled = true;
+                document.getElementById("no3").disabled = true;
+            }
+            
+            function check1()
+            {
+                var check = document.getElementById("no1").innerHTML;
+                var sel = document.getElementById("selectedNumber").value;
+                var val = document.getElementById("score").innerHTML;
+
+                var count = parseInt(val);
+
+                if (check == sel)
+                {
+                    count = count + 4;
+                    document.getElementById("score").innerHTML = count;
+                }
+
+                else 
+                {
+                    count = count - 3;
+                    document.getElementById("score").innerHTML = count;
+                }
+
+                document.getElementById("no1").disabled = true;
+                document.getElementById("no2").disabled = true;
+                document.getElementById("no3").disabled = true;
+            }
+
+            function check2()
+            {
+                var check = document.getElementById("no2").innerHTML;
+                var sel = document.getElementById("selectedNumber").value;
+                var val = document.getElementById("score").innerHTML;
+
+                var count = parseInt(val);
+
+                if (check == sel)
+                {
+                    count = count + 4;
+                    document.getElementById("score").innerHTML = count;
+                }
+
+                else 
+                {
+                    count = count - 3;
+                    document.getElementById("score").innerHTML = count;
+                }
+
+                document.getElementById("no1").disabled = true;
+                document.getElementById("no2").disabled = true;
+                document.getElementById("no3").disabled = true;
+            }
+
+            function check3()
+            {
+                var check = document.getElementById("no3").innerHTML;
+                var sel = document.getElementById("selectedNumber").value;
+                var val = document.getElementById("score").innerHTML;
+
+                var count = parseInt(val);
+
+                if (check == sel)
+                {
+                    count = count + 4;
+                    document.getElementById("score").innerHTML = count;
+                }
+
+                else 
+                {
+                    count = count - 3;
+                    document.getElementById("score").innerHTML = count;
+                }
+
+                document.getElementById("no1").disabled = true;
+                document.getElementById("no2").disabled = true;
+                document.getElementById("no3").disabled = true;
+            }
+        </script>
+    </body>
+</html>
